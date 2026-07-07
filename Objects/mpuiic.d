@@ -47,7 +47,6 @@
 .\objects\mpuiic.o: .\Hardware\PWM\pwm.h
 .\objects\mpuiic.o: .\Hardware\USART2\usart2.h
 .\objects\mpuiic.o: .\System\led.h
-.\objects\mpuiic.o: .\Hardware\OPENMV\openmv.h
 .\objects\mpuiic.o: .\Hardware\BUTTON\button.h
 .\objects\mpuiic.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 .\objects\mpuiic.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h

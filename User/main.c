@@ -1,20 +1,17 @@
 #include "sys.h" 
 
-float Target_Speed = 0;						//ÆÚÍûËÙ¶È
-short gyrox,gyroy,gyroz;					//½ÇËÙ¶È
-float Pitch,Roll,Yaw;						//½Ç¶È
-int Encoder_Left,Encoder_Right;				//±àÂëÆ÷ËÙ¶È
+float Target_Speed = 0;						//æœŸæœ›é€Ÿåº¦
+short gyrox,gyroy,gyroz;					//è§’é€Ÿåº¦
+float Pitch,Roll,Yaw;						//è§’åº¦
+int Encoder_Left,Encoder_Right;				//ç¼–ç å™¨é€Ÿåº¦
 u8 Flag_Stop = 0;
-u8 Flag_jingzhi,Flag_front,Flag_back,Flag_Left,Flag_Right,Flag_Turn_jingzhi,Speed_Times = 5; //À¶ÑÀÒ£¿ØÏà¹ØµÄ±äÁ¿
-u8 Flag_OpenMv_right = 0,Flag_OpenMv_left = 0;
-u8 Flag_xunji,Flag_yaokong = 1;
+u8 Flag_jingzhi,Flag_front,Flag_back,Flag_Left,Flag_Right,Flag_Turn_jingzhi,Speed_Times = 5; //é¥æ§ç›¸å…³å˜é‡
 
 int main(void)
 {	
-	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);//4¼¶ÇÀÕ¼,4¼¶ÏìÓ¦¡£
-	uart1_init(9600);
-//	USART2_Init(115200);
-	USART3_Init(115200);
+	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);//4çº§æŠ¢å ,4çº§å“åº”ã€‚
+	uart3_init(9600);			//USART3ï¼šè“ç‰™/é¥æ§æŒ‡ä»¤æ¥æ”¶
+	USART2_Init(115200);		//USART2ï¼šprintfè°ƒè¯•è¾“å‡ºï¼Œå¿…é¡»åˆå§‹åŒ–åprintfæ‰ä¼šç”Ÿæ•ˆ
 	
 	delay_init();
 	NVIC_Config();
@@ -32,7 +29,7 @@ int main(void)
 	PWM_Init_TIM1(7199,0);
 	
 	MPU6050_EXTI_Init();
-	printf("³õÊ¼»¯Íê³É\n");
+	printf("åˆå§‹åŒ–å®Œæˆ\n");
 	while(1)
 	{
 		OLED_Float(0,0,Pitch,1);

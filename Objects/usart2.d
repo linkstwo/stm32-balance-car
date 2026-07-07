@@ -47,7 +47,6 @@
 .\objects\usart2.o: .\Hardware\PWM\pwm.h
 .\objects\usart2.o: .\Hardware\USART2\usart2.h
 .\objects\usart2.o: .\System\led.h
-.\objects\usart2.o: .\Hardware\OPENMV\openmv.h
 .\objects\usart2.o: .\Hardware\BUTTON\button.h
 .\objects\usart2.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 .\objects\usart2.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h

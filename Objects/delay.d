@@ -47,7 +47,6 @@
 .\objects\delay.o: .\Hardware\PWM\pwm.h
 .\objects\delay.o: .\Hardware\USART2\usart2.h
 .\objects\delay.o: System\led.h
-.\objects\delay.o: .\Hardware\OPENMV\openmv.h
 .\objects\delay.o: .\Hardware\BUTTON\button.h
 .\objects\delay.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 .\objects\delay.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h

@@ -1,11 +1,9 @@
-#ifndef __USART_H
+ï»¿#ifndef __USART_H
 #define __USART_H
+
 #include "stdio.h"	
 #include "sys.h" 
 
-
-void uart1_init(u32 bound);					//´®¿Ú1³õÊ¼»¯º¯Êı
-void USART1_IRQHandler(void);     	//´®¿Ú1ÖĞ¶Ï·şÎñ³ÌĞò
+void uart3_init(u32 bound);					//ä¸²å£3åˆå§‹åŒ–å‡½æ•°
+void USART3_IRQHandler(void);	    	//ä¸²å£3ä¸­æ–­æœåŠ¡ç¨‹åº
 #endif
-
-

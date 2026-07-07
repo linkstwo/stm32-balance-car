@@ -47,7 +47,6 @@
 .\objects\encoder.o: .\Hardware\PWM\pwm.h
 .\objects\encoder.o: .\Hardware\USART2\usart2.h
 .\objects\encoder.o: .\System\led.h
-.\objects\encoder.o: .\Hardware\OPENMV\openmv.h
 .\objects\encoder.o: .\Hardware\BUTTON\button.h
 .\objects\encoder.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 .\objects\encoder.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h

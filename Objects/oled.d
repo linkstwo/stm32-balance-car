@@ -46,7 +46,6 @@
 .\objects\oled.o: .\Hardware\PWM\pwm.h
 .\objects\oled.o: .\Hardware\USART2\usart2.h
 .\objects\oled.o: .\System\led.h
-.\objects\oled.o: .\Hardware\OPENMV\openmv.h
 .\objects\oled.o: .\Hardware\BUTTON\button.h
 .\objects\oled.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 .\objects\oled.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h

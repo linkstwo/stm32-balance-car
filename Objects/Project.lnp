@@ -12,7 +12,6 @@
 ".\objects\pwm.o"
 ".\objects\oled.o"
 ".\objects\usart2.o"
-".\objects\openmv.o"
 ".\objects\button.o"
 ".\objects\sys.o"
 ".\objects\usart.o"
