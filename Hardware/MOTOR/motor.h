@@ -10,9 +10,9 @@
 #define Bin2  PBout(15)
 
 void Motor_Init(void);
+void Motor_Stop(void);
 void Limit(int *motoA,int *motoB);
 int GFP_abs(int p);
 void SETPWM(int motor_left, int motor_right);
 u8 Turn_Off(float angle);
 #endif
-

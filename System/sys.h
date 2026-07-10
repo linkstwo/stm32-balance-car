@@ -1,4 +1,4 @@
-﻿#ifndef __SYS_H
+#ifndef __SYS_H
 #define __SYS_H	 
 
 #include "stm32f10x.h"
@@ -79,15 +79,15 @@
 #define SWD_ENABLE         0X01
 #define JTAG_SWD_ENABLE    0X00	
 
-extern u8 Usart3_Receive;
+extern volatile u8 Usart3_Receive;
 extern u8 Flag_Stop;
 extern char stop;
 extern int PWM_MAX,PWM_MIN;
 extern int MOTO1,MOTO2;
-extern float Pitch,Roll,Yaw;
-extern short gyrox,gyroy,gyroz;
+extern volatile float Pitch,Roll,Yaw;
+extern volatile short gyrox,gyroy,gyroz;
 extern int Encoder_Left,Encoder_Right;
-extern u8 Flag_jingzhi,Flag_front,Flag_back,Flag_Left,Flag_Right,Flag_Turn_jingzhi,Speed_Times;
+extern volatile u8 Flag_jingzhi,Flag_front,Flag_back,Flag_Left,Flag_Right,Flag_Turn_jingzhi,Speed_Times;
 
 void NVIC_Config(void);
 #endif

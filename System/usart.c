@@ -1,15 +1,15 @@
-﻿#include "usart.h"
+#include "usart.h"
 #include "stm32f10x.h"
 
-extern u8 Flag_front;
-extern u8 Flag_back;
-extern u8 Flag_Left;
-extern u8 Flag_Right;
-extern u8 Flag_jingzhi;
-extern u8 Flag_Turn_jingzhi;
-extern u8 Speed_Times;
+extern volatile u8 Flag_front;
+extern volatile u8 Flag_back;
+extern volatile u8 Flag_Left;
+extern volatile u8 Flag_Right;
+extern volatile u8 Flag_jingzhi;
+extern volatile u8 Flag_Turn_jingzhi;
+extern volatile u8 Speed_Times;
 
-u8 Usart3_Receive;
+volatile u8 Usart3_Receive;
 
 void uart3_init(u32 bound)
 {

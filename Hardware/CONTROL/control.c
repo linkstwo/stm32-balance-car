@@ -1,41 +1,72 @@
-﻿#include "control.h"
+#include "control.h"
 
-float Med_Angle = -8;          //机械中值：车体自然直立时的Pitch角度，需要按实车校准
-float Vertical_Kp = -330,      //直立环Kp
-      Vertical_Kd = -2.2;      //直立环Kd
+#define MPU_FAIL_LIMIT 5
 
-float Velocity_Kp = 120,       //速度环Kp
-      Velocity_Ki = 0.6;       //速度环Ki
+float Med_Angle = -8;
+float Vertical_Kp = -330,
+      Vertical_Kd = -2.2;
 
-float Turn_Kp = 40,            //转向环Kp
-      Turn_Kd = -0.8;          //转向环Kd
+float Velocity_Kp = 120,
+      Velocity_Ki = 0.6;
 
-int Vertical_out,Velocity_out,Turn_out;     //三环控制输出
+float Turn_Kp = 40,
+      Turn_Kd = -0.8;
 
-extern float Med_Angle;                     //机械中值
-int measure;                                //左右编码器速度和
-int motor1, motor2;                         //左右电机最终PWM
+int Vertical_out, Velocity_out, Turn_out;
+int measure;
+int motor1, motor2;
+static u8 mpu_read_fail_count = 0;
+static u8 mpu_fault_latched = 0;
 
 int Vertical_PD(float measure, float Gyro);
 int Velocity_PI(int Speed_measure);
 int Turn(int gyro_Z);
 
-
 void EXTI9_5_IRQHandler(void)
 {
     int PWM_out;
-    if(EXTI_GetITStatus(EXTI_Line5)!=0)
+    float pitch, roll, yaw;
+    short gyro_x, gyro_y, gyro_z;
+    u8 dmp_ret, gyro_ret;
+
+    if(EXTI_GetITStatus(EXTI_Line5) != RESET)
     {
+        EXTI_ClearITPendingBit(EXTI_Line5);
         if(PBin(5) == 0)
         {
-            EXTI_ClearITPendingBit(EXTI_Line5);
+            if(mpu_fault_latched == 1)
+            {
+                Motor_Stop();
+                return;
+            }
 
             Encoder_Left = Read_Spead(2);
             Encoder_Right = -Read_Spead(4);
             measure = (Encoder_Left + Encoder_Right);
 
-            mpu_dmp_get_data(&Pitch, &Roll, &Yaw);
-            MPU_Get_Gyroscope(&gyrox,&gyroy,&gyroz);
+            dmp_ret = mpu_dmp_get_data(&pitch, &roll, &yaw);
+            gyro_ret = MPU_Get_Gyroscope(&gyro_x, &gyro_y, &gyro_z);
+            if(dmp_ret != 0 || gyro_ret != 0)
+            {
+                if(mpu_read_fail_count < MPU_FAIL_LIMIT)
+                {
+                    mpu_read_fail_count++;
+                }
+                Motor_Stop();
+                if(mpu_read_fail_count >= MPU_FAIL_LIMIT)
+                {
+                    mpu_fault_latched = 1;
+                }
+                return;
+            }
+
+            mpu_read_fail_count = 0;
+            Pitch = pitch;
+            Roll = roll;
+            Yaw = yaw;
+            gyrox = gyro_x;
+            gyroy = gyro_y;
+            gyroz = gyro_z;
 
             Vertical_out = Vertical_PD(Pitch, gyroy);
             Velocity_out = Velocity_PI(measure);
@@ -48,7 +79,7 @@ void EXTI9_5_IRQHandler(void)
             Limit(&motor1, &motor2);
             if(Turn_Off(Pitch) == 0)
             {
-                SETPWM(motor1,motor2);
+                SETPWM(motor1, motor2);
             }
         }
     }
@@ -66,7 +97,7 @@ int Velocity_PI(int Speed_measure)
 {
     static int Encoder_err, Encoder_err_low, Encoder_err_low_last, Encoder_sum, Movement;
     static int PWM_out;
-    const float Target_Velocity = 300;                          //遥控模式基础速度
+    const float Target_Velocity = 300;
 
     if(Flag_front == 1)         Movement = Target_Velocity / Speed_Times;
     else if(Flag_back == 1)     Movement = -Target_Velocity / Speed_Times;
@@ -93,8 +124,8 @@ int Turn(int gyro_Z)
 {
     int PWM_out;
     static float Turn_Target;
-    const float Turn_Amplitude = 30;                             //遥控转向幅度
-    float Kp = Turn_Kp,Kd;
+    const float Turn_Amplitude = 30;
+    float Kp = Turn_Kp, Kd;
 
     if(1 == Flag_Left)              Turn_Target = -Turn_Amplitude/2;
     else if(1 == Flag_Right)        Turn_Target = Turn_Amplitude/2;

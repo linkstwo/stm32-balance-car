@@ -1,4 +1,4 @@
-﻿#include "usart2.h"
+#include "usart2.h"
 #include "string.h"
 
 
@@ -24,18 +24,7 @@ void USART2_Init(u32 bound)
 	USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
 	USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
 	USART_Init(USART2, &USART_InitStructure);
-	USART_ITConfig(USART2, USART_IT_RXNE, ENABLE);
 	USART_Cmd(USART2, ENABLE);
-}
-
-
-void USART2_IRQHandler(void) 
-{
-	if(USART_GetITStatus(USART2,USART_IT_RXNE)!=RESET)
-	{
-		
-	}
-	
 }
 
 

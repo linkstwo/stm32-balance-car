@@ -6,9 +6,6 @@
 #include "stdio.h"
 
 void USART2_Init(u32 bound);
-void USART2_IRQHandler(void);
-
-
 
 
 
