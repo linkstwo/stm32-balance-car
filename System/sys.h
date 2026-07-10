@@ -1,7 +1,5 @@
-#ifndef __SYS_H
+ï»¿#ifndef __SYS_H
 #define __SYS_H	 
-
-
 
 #include "stm32f10x.h"
 #include "delay.h"
@@ -17,65 +15,55 @@
 #include "pwm.h"
 #include "usart2.h"
 #include "led.h"
-#include "openmv.h"
 #include "button.h"
 
-
-////////////////////////////////////////////////////////////////////////////
 #include <string.h> 
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
-#include <string.h>
 #include <math.h>
-//Î»´ø²Ù×÷,ÊµÏÖ51ÀàËÆµÄGPIO¿ØÖÆ¹¦ÄÜ
-//¾ßÌåÊµÏÖË¼Ïë,²Î¿¼<<CM3È¨ÍşÖ¸ÄÏ>>µÚÎåÕÂ(87Ò³~92Ò³).
-//IO¿Ú²Ù×÷ºê¶¨Òå
+
 #define BITBAND(addr, bitnum) ((addr & 0xF0000000)+0x2000000+((addr &0xFFFFF)<<5)+(bitnum<<2)) 
 #define MEM_ADDR(addr)  *((volatile unsigned long  *)(addr)) 
 #define BIT_ADDR(addr, bitnum)   MEM_ADDR(BITBAND(addr, bitnum)) 
-//IO¿ÚµØÖ·Ó³Éä
-#define GPIOA_ODR_Addr    (GPIOA_BASE+12) //0x4001080C 
-#define GPIOB_ODR_Addr    (GPIOB_BASE+12) //0x40010C0C 
-#define GPIOC_ODR_Addr    (GPIOC_BASE+12) //0x4001100C 
-#define GPIOD_ODR_Addr    (GPIOD_BASE+12) //0x4001140C 
-#define GPIOE_ODR_Addr    (GPIOE_BASE+12) //0x4001180C 
-#define GPIOF_ODR_Addr    (GPIOF_BASE+12) //0x40011A0C    
-#define GPIOG_ODR_Addr    (GPIOG_BASE+12) //0x40011E0C    
 
-#define GPIOA_IDR_Addr    (GPIOA_BASE+8) //0x40010808 
-#define GPIOB_IDR_Addr    (GPIOB_BASE+8) //0x40010C08 
-#define GPIOC_IDR_Addr    (GPIOC_BASE+8) //0x40011008 
-#define GPIOD_IDR_Addr    (GPIOD_BASE+8) //0x40011408 
-#define GPIOE_IDR_Addr    (GPIOE_BASE+8) //0x40011808 
-#define GPIOF_IDR_Addr    (GPIOF_BASE+8) //0x40011A08 
-#define GPIOG_IDR_Addr    (GPIOG_BASE+8) //0x40011E08 
- 
-//IO¿Ú²Ù×÷,Ö»¶Ôµ¥Ò»µÄIO¿Ú!
-//È·±£nµÄÖµĞ¡ÓÚ16!
-#define PAout(n)   BIT_ADDR(GPIOA_ODR_Addr,n)  //Êä³ö 
-#define PAin(n)    BIT_ADDR(GPIOA_IDR_Addr,n)  //ÊäÈë 
+#define GPIOA_ODR_Addr    (GPIOA_BASE+12)
+#define GPIOB_ODR_Addr    (GPIOB_BASE+12)
+#define GPIOC_ODR_Addr    (GPIOC_BASE+12)
+#define GPIOD_ODR_Addr    (GPIOD_BASE+12)
+#define GPIOE_ODR_Addr    (GPIOE_BASE+12)
+#define GPIOF_ODR_Addr    (GPIOF_BASE+12)
+#define GPIOG_ODR_Addr    (GPIOG_BASE+12)
 
-#define PBout(n)   BIT_ADDR(GPIOB_ODR_Addr,n)  //Êä³ö 
-#define PBin(n)    BIT_ADDR(GPIOB_IDR_Addr,n)  //ÊäÈë 
+#define GPIOA_IDR_Addr    (GPIOA_BASE+8)
+#define GPIOB_IDR_Addr    (GPIOB_BASE+8)
+#define GPIOC_IDR_Addr    (GPIOC_BASE+8)
+#define GPIOD_IDR_Addr    (GPIOD_BASE+8)
+#define GPIOE_IDR_Addr    (GPIOE_BASE+8)
+#define GPIOF_IDR_Addr    (GPIOF_BASE+8)
+#define GPIOG_IDR_Addr    (GPIOG_BASE+8) 
 
-#define PCout(n)   BIT_ADDR(GPIOC_ODR_Addr,n)  //Êä³ö 
-#define PCin(n)    BIT_ADDR(GPIOC_IDR_Addr,n)  //ÊäÈë 
+#define PAout(n)   BIT_ADDR(GPIOA_ODR_Addr,n)
+#define PAin(n)    BIT_ADDR(GPIOA_IDR_Addr,n)
 
-#define PDout(n)   BIT_ADDR(GPIOD_ODR_Addr,n)  //Êä³ö 
-#define PDin(n)    BIT_ADDR(GPIOD_IDR_Addr,n)  //ÊäÈë 
+#define PBout(n)   BIT_ADDR(GPIOB_ODR_Addr,n)
+#define PBin(n)    BIT_ADDR(GPIOB_IDR_Addr,n)
 
-#define PEout(n)   BIT_ADDR(GPIOE_ODR_Addr,n)  //Êä³ö 
-#define PEin(n)    BIT_ADDR(GPIOE_IDR_Addr,n)  //ÊäÈë
+#define PCout(n)   BIT_ADDR(GPIOC_ODR_Addr,n)
+#define PCin(n)    BIT_ADDR(GPIOC_IDR_Addr,n)
 
-#define PFout(n)   BIT_ADDR(GPIOF_ODR_Addr,n)  //Êä³ö 
-#define PFin(n)    BIT_ADDR(GPIOF_IDR_Addr,n)  //ÊäÈë
+#define PDout(n)   BIT_ADDR(GPIOD_ODR_Addr,n)
+#define PDin(n)    BIT_ADDR(GPIOD_IDR_Addr,n)
 
-#define PGout(n)   BIT_ADDR(GPIOG_ODR_Addr,n)  //Êä³ö 
-#define PGin(n)    BIT_ADDR(GPIOG_IDR_Addr,n)  //ÊäÈë
+#define PEout(n)   BIT_ADDR(GPIOE_ODR_Addr,n)
+#define PEin(n)    BIT_ADDR(GPIOE_IDR_Addr,n)
 
-/////////////////////////////////////////////////////////////////
-//Ex_NVIC_Config×¨ÓÃ¶¨Òå
+#define PFout(n)   BIT_ADDR(GPIOF_ODR_Addr,n)
+#define PFin(n)    BIT_ADDR(GPIOF_IDR_Addr,n)
+
+#define PGout(n)   BIT_ADDR(GPIOG_ODR_Addr,n)
+#define PGin(n)    BIT_ADDR(GPIOG_IDR_Addr,n)
+
 #define GPIO_A 0
 #define GPIO_B 1
 #define GPIO_C 2
@@ -84,26 +72,22 @@
 #define GPIO_F 5
 #define GPIO_G 6 
 
-#define FTIR   1  //ÏÂ½µÑØ´¥·¢
-#define RTIR   2  //ÉÏÉıÑØ´¥·¢
+#define FTIR   1
+#define RTIR   2
 
-//JTAGÄ£Ê½ÉèÖÃ¶¨Òå
 #define JTAG_SWD_DISABLE   0X02
 #define SWD_ENABLE         0X01
 #define JTAG_SWD_ENABLE    0X00	
 
-extern u8 Usart1_Receive;
+extern u8 Usart3_Receive;
 extern u8 Flag_Stop;
 extern char stop;
 extern int PWM_MAX,PWM_MIN;
 extern int MOTO1,MOTO2;
-extern float Pitch,Roll,Yaw;		//½Ç¶È
-extern short gyrox,gyroy,gyroz;	//ÍÓÂİÒÇ--½ÇËÙ¶È
+extern float Pitch,Roll,Yaw;
+extern short gyrox,gyroy,gyroz;
 extern int Encoder_Left,Encoder_Right;
-extern u8 Flag_jingzhi,Flag_front,Flag_back,Flag_Left,Flag_Right,Flag_Turn_jingzhi,Speed_Times; //À¶ÑÀÒ£¿ØÏà¹ØµÄ±äÁ¿
-extern u8 Flag_OpenMv_right,Flag_OpenMv_left;
-extern u8 Flag_xunji,Flag_yaokong;
+extern u8 Flag_jingzhi,Flag_front,Flag_back,Flag_Left,Flag_Right,Flag_Turn_jingzhi,Speed_Times;
 
 void NVIC_Config(void);
 #endif
-

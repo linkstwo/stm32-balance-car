@@ -47,7 +47,6 @@
 .\objects\mpu6050.o: .\Hardware\PWM\pwm.h
 .\objects\mpu6050.o: .\Hardware\USART2\usart2.h
 .\objects\mpu6050.o: .\System\led.h
-.\objects\mpu6050.o: .\Hardware\OPENMV\openmv.h
 .\objects\mpu6050.o: .\Hardware\BUTTON\button.h
 .\objects\mpu6050.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 .\objects\mpu6050.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h

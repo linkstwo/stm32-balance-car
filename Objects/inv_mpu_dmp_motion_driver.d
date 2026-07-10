@@ -51,5 +51,4 @@
 .\objects\inv_mpu_dmp_motion_driver.o: .\Hardware\PWM\pwm.h
 .\objects\inv_mpu_dmp_motion_driver.o: .\Hardware\USART2\usart2.h
 .\objects\inv_mpu_dmp_motion_driver.o: .\System\led.h
-.\objects\inv_mpu_dmp_motion_driver.o: .\Hardware\OPENMV\openmv.h
 .\objects\inv_mpu_dmp_motion_driver.o: .\Hardware\BUTTON\button.h

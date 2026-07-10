@@ -16,8 +16,8 @@
         <TargetCommonOption>
           <Device>STM32F103C8</Device>
           <Vendor>STMicroelectronics</Vendor>
-          <PackID>Keil.STM32F1xx_DFP.2.2.0</PackID>
-          <PackURL>http://www.keil.com/pack/</PackURL>
+          <PackID>Keil.STM32F1xx_DFP.2.4.1</PackID>
+          <PackURL>https://www.keil.com/pack/</PackURL>
           <Cpu>IRAM(0x20000000,0x5000) IROM(0x08000000,0x10000) CPUTYPE("Cortex-M3") CLOCK(12000000) ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
           <StartupFile></StartupFile>
@@ -336,7 +336,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>.\Libraries;.\Startup;.\User;.\Hardware;.\System;.\Hardware\MPU6050;.\Hardware\OLED;.\Hardware\CONTROL;.\Hardware\ENCODER;.\Hardware\EXTI;.\Hardware\MOTOR;.\Hardware\PWM;.\Hardware\MPU6050\eMPL;.\Hardware\USART2;.\Hardware\OPENMV;.\Hardware\BUTTON</IncludePath>
+              <IncludePath>.\Libraries;.\Startup;.\User;.\Hardware;.\System;.\Hardware\MPU6050;.\Hardware\OLED;.\Hardware\CONTROL;.\Hardware\ENCODER;.\Hardware\EXTI;.\Hardware\MOTOR;.\Hardware\PWM;.\Hardware\MPU6050\eMPL;.\Hardware\USART2;.\Hardware\BUTTON</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -459,11 +459,6 @@
               <FileName>usart2.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Hardware\USART2\usart2.c</FilePath>
-            </File>
-            <File>
-              <FileName>openmv.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Hardware\OPENMV\openmv.c</FilePath>
             </File>
             <File>
               <FileName>button.c</FileName>

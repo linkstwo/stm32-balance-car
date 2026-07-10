@@ -1,31 +1,25 @@
-#include "sys.h" 
+Ôªø#include "sys.h" 
 
 
 void NVIC_Config(void)
 {
 	NVIC_InitTypeDef NVIC_InitStruct;
-	//MPU6050÷–∂œ
+	//MPU6050‰∏≠Êñ≠
 	NVIC_InitStruct.NVIC_IRQChannel=EXTI9_5_IRQn;
-	NVIC_InitStruct.NVIC_IRQChannelPreemptionPriority=0;//«¿’º”≈œ»º∂
-	NVIC_InitStruct.NVIC_IRQChannelSubPriority=0;//◊””≈œ»º∂£¨œÏ”¶”≈œ»º∂
+	NVIC_InitStruct.NVIC_IRQChannelPreemptionPriority=0;
+	NVIC_InitStruct.NVIC_IRQChannelSubPriority=0;
 	NVIC_InitStruct.NVIC_IRQChannelCmd=ENABLE;
-	NVIC_Init(&NVIC_InitStruct);//≈‰÷√∫√µƒΩ·ππÃÂ±‰¡øµÿ÷∑¥´»Î∫Ø ˝£¨
-	//¥Æø⁄“ª÷–∂œ
-	NVIC_InitStruct.NVIC_IRQChannel=USART1_IRQn;
+	NVIC_Init(&NVIC_InitStruct);
+	//‰∏≤Âè£3‰∏≠Êñ≠
+	NVIC_InitStruct.NVIC_IRQChannel=USART3_IRQn;
 	NVIC_InitStruct.NVIC_IRQChannelCmd=ENABLE;
 	NVIC_InitStruct.NVIC_IRQChannelPreemptionPriority=2;
 	NVIC_InitStruct.NVIC_IRQChannelSubPriority=0;
 	NVIC_Init(&NVIC_InitStruct);	
-	//¥Æø⁄∂˛÷–∂œ
+	//‰∏≤Âè£‰∫å‰∏≠Êñ≠ÔºöÁî®‰∫éprintfË∞ÉËØïËæìÂá∫
 	NVIC_InitStruct.NVIC_IRQChannel=USART2_IRQn;
 	NVIC_InitStruct.NVIC_IRQChannelCmd=ENABLE;
 	NVIC_InitStruct.NVIC_IRQChannelPreemptionPriority=2;
-	NVIC_InitStruct.NVIC_IRQChannelSubPriority=0;
-	NVIC_Init(&NVIC_InitStruct);
-	//¥Æø⁄»˝÷–∂œ
-	NVIC_InitStruct.NVIC_IRQChannel=USART3_IRQn;
-	NVIC_InitStruct.NVIC_IRQChannelCmd=ENABLE;
-	NVIC_InitStruct.NVIC_IRQChannelPreemptionPriority=3;
 	NVIC_InitStruct.NVIC_IRQChannelSubPriority=0;
 	NVIC_Init(&NVIC_InitStruct);
 }

@@ -49,5 +49,4 @@
 .\objects\inv_mpu.o: .\Hardware\PWM\pwm.h
 .\objects\inv_mpu.o: .\Hardware\USART2\usart2.h
 .\objects\inv_mpu.o: .\System\led.h
-.\objects\inv_mpu.o: .\Hardware\OPENMV\openmv.h
 .\objects\inv_mpu.o: .\Hardware\BUTTON\button.h

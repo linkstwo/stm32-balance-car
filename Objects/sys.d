@@ -46,7 +46,6 @@
 .\objects\sys.o: .\Hardware\PWM\pwm.h
 .\objects\sys.o: .\Hardware\USART2\usart2.h
 .\objects\sys.o: System\led.h
-.\objects\sys.o: .\Hardware\OPENMV\openmv.h
 .\objects\sys.o: .\Hardware\BUTTON\button.h
 .\objects\sys.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 .\objects\sys.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
