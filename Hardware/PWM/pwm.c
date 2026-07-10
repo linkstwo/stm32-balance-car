@@ -25,7 +25,7 @@ void PWM_Init_TIM1(u16 arr, u16 psc)
 	TIM_OCInitStruct.TIM_OutputNState = TIM_OutputNState_Disable;
 	TIM_OCInitStruct.TIM_Pulse = 0;
 	TIM_OCInitStruct.TIM_OCPolarity = TIM_OCPolarity_High;
-	TIM_OCInitStruct.TIM_OCNPolarity = TIM_OCPolarity_High;
+	TIM_OCInitStruct.TIM_OCNPolarity = TIM_OCNPolarity_High;
 	TIM_OCInitStruct.TIM_OCIdleState = TIM_OCIdleState_Reset;
 	TIM_OCInitStruct.TIM_OCNIdleState = TIM_OCNIdleState_Reset;
 	TIM_OC1Init(TIM1, &TIM_OCInitStruct);

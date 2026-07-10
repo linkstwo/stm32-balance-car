@@ -1,11 +1,12 @@
 # stm32-balance-car
 
-STM32 平衡小车项目。
+STM32 balance car project.
+This version keeps only Bluetooth remote control and does not include OpenMV code.
 
-当前版本只保留蓝牙遥控控制，不再包含 OpenMV 相关内容。
+## Notes
 
-## 说明
-
-- 工程文件：`Project.uvprojx`
-- 开发环境：Keil MDK
-- 代码入口：`User/main.c`
+- Project file: `Project.uvprojx`
+- Toolchain: Keil MDK
+- Entry file: `User/main.c`
+- The remote side must keep sending valid control commands with a period below 300 ms, or the car will stop automatically.
+- After MPU fault latch, motor output will not recover automatically. Power-cycle recovery is required.

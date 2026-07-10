@@ -10,6 +10,7 @@ extern volatile u8 Flag_Turn_jingzhi;
 extern volatile u8 Speed_Times;
 
 volatile u8 Usart3_Receive;
+volatile u32 Usart3_LastValidCmdMs;
 
 void uart3_init(u32 bound)
 {
@@ -52,6 +53,7 @@ void USART3_IRQHandler(void)
     if (USART_GetITStatus(USART3, USART_IT_RXNE) != RESET)
     {
         u8 usart3_receive = USART_ReceiveData(USART3);
+        u8 valid_cmd = 1;
         Usart3_Receive = usart3_receive;
 
         Flag_front = 0;
@@ -92,7 +94,13 @@ void USART3_IRQHandler(void)
                 Speed_Times = (Speed_Times > 1) ? (Speed_Times - 1) : 1;
                 break;
             default:
+                valid_cmd = 0;
                 break;
+        }
+
+        if (valid_cmd)
+        {
+            Usart3_LastValidCmdMs = delay_get_ms();
         }
     }
 }

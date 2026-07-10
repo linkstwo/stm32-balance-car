@@ -18,11 +18,11 @@ void Motor_Init(void)
 
 void Limit(int *motoA, int *motoB)
 {
-	if(*motoA > 7200) *motoA = 7200;
-	if(*motoA < -7200) *motoA = -7200;
+	if(*motoA > 7199) *motoA = 7199;
+	if(*motoA < -7199) *motoA = -7199;
 
-	if(*motoB > 7200) *motoB = 7200;
-	if(*motoB < -7200) *motoB = -7200;
+	if(*motoB > 7199) *motoB = 7199;
+	if(*motoB < -7199) *motoB = -7199;
 }
 
 int GFP_abs(int p)

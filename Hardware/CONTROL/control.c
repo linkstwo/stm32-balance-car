@@ -15,12 +15,60 @@ float Turn_Kp = 40,
 int Vertical_out, Velocity_out, Turn_out;
 int measure;
 int motor1, motor2;
-static u8 mpu_read_fail_count = 0;
-static u8 mpu_fault_latched = 0;
+static int Encoder_err;
+static int Encoder_err_low;
+static int Encoder_err_low_last;
+static int Encoder_sum;
+static int Movement;
+static float Turn_Target;
+static volatile u8 mpu_read_fail_count = 0;
+static volatile u8 mpu_fault_latched = 0;
 
 int Vertical_PD(float measure, float Gyro);
 int Velocity_PI(int Speed_measure);
 int Turn(int gyro_Z);
+
+void Control_Reset(void)
+{
+    uint32_t primask = __get_PRIMASK();
+
+    __disable_irq();
+    Encoder_err = 0;
+    Encoder_err_low = 0;
+    Encoder_err_low_last = 0;
+    Encoder_sum = 0;
+    Movement = 0;
+    Turn_Target = 0;
+    Vertical_out = 0;
+    Velocity_out = 0;
+    Turn_out = 0;
+    measure = 0;
+    motor1 = 0;
+    motor2 = 0;
+    Encoder_Left = 0;
+    Encoder_Right = 0;
+    if(primask == 0U)
+    {
+        __enable_irq();
+    }
+}
+
+u8 Control_HasMpuFault(void)
+{
+    return mpu_fault_latched;
+}
+
+static void Control_EnterStaticState(void)
+{
+    Flag_front = 0;
+    Flag_back = 0;
+    Flag_Left = 0;
+    Flag_Right = 0;
+    Flag_jingzhi = 1;
+    Flag_Turn_jingzhi = 1;
+    Motor_Stop();
+    Control_Reset();
+}
 
 void EXTI9_5_IRQHandler(void)
 {
@@ -36,7 +84,7 @@ void EXTI9_5_IRQHandler(void)
         {
             if(mpu_fault_latched == 1)
             {
-                Motor_Stop();
+                Control_EnterStaticState();
                 return;
             }
 
@@ -52,7 +100,7 @@ void EXTI9_5_IRQHandler(void)
                 {
                     mpu_read_fail_count++;
                 }
-                Motor_Stop();
+                Control_EnterStaticState();
                 if(mpu_read_fail_count >= MPU_FAIL_LIMIT)
                 {
                     mpu_fault_latched = 1;
@@ -81,6 +129,10 @@ void EXTI9_5_IRQHandler(void)
             {
                 SETPWM(motor1, motor2);
             }
+            else
+            {
+                Control_EnterStaticState();
+            }
         }
     }
 }
@@ -95,8 +147,7 @@ int Vertical_PD(float measure, float Gyro)
 
 int Velocity_PI(int Speed_measure)
 {
-    static int Encoder_err, Encoder_err_low, Encoder_err_low_last, Encoder_sum, Movement;
-    static int PWM_out;
+    int PWM_out;
     const float Target_Velocity = 300;
 
     if(Flag_front == 1)         Movement = Target_Velocity / Speed_Times;
@@ -123,7 +174,6 @@ int Velocity_PI(int Speed_measure)
 int Turn(int gyro_Z)
 {
     int PWM_out;
-    static float Turn_Target;
     const float Turn_Amplitude = 30;
     float Kp = Turn_Kp, Kd;
 
