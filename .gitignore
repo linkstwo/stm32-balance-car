@@ -1,0 +1,17 @@
+Objects/
+Listings/
+DebugConfig/*.dbgconf
+*.o
+*.d
+*.crf
+*.axf
+*.hex
+*.map
+*.lst
+*.lnp
+*.bak
+*.dep
+*.htm
+*.sct
+*.build_log.htm
+Project.uvguix.*
