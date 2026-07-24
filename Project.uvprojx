@@ -52,7 +52,7 @@
           <OutputName>Project</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
-          <CreateHexFile>0</CreateHexFile>
+              <CreateHexFile>1</CreateHexFile>
           <DebugInformation>1</DebugInformation>
           <BrowseInformation>1</BrowseInformation>
           <ListingPath>.\Listings\</ListingPath>
@@ -333,10 +333,10 @@
             <v6WtE>0</v6WtE>
             <v6Rtti>0</v6Rtti>
             <VariousControls>
-              <MiscControls></MiscControls>
-              <Define>USE_STDPERIPH_DRIVER</Define>
+              <MiscControls>--c99</MiscControls>
+              <Define>USE_STDPERIPH_DRIVER,STM32F10X_MD</Define>
               <Undefine></Undefine>
-              <IncludePath>.\Libraries;.\Startup;.\User;.\Hardware;.\System;.\Hardware\MPU6050;.\Hardware\OLED;.\Hardware\CONTROL;.\Hardware\ENCODER;.\Hardware\EXTI;.\Hardware\MOTOR;.\Hardware\PWM;.\Hardware\MPU6050\eMPL;.\Hardware\USART2;.\Hardware\BUTTON;.\Hardware\BOARD</IncludePath>
+              <IncludePath>.\Libraries;.\Startup;.\Core;.\Config;.\BSP;.\Drivers\Motor;.\Drivers\IMU;.\Drivers\Display;.\Control;.\App;.\Legacy;.\Hardware\MPU6050\eMPL;.\Hardware\OLED</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -378,43 +378,8 @@
       </TargetOption>
       <Groups>
         <Group>
-          <GroupName>User</GroupName>
+          <GroupName>ThirdParty_InvenSense</GroupName>
           <Files>
-            <File>
-              <FileName>main.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\User\main.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f10x_conf.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\User\stm32f10x_conf.h</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f10x_it.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\User\stm32f10x_it.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f10x_it.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\User\stm32f10x_it.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Hardware</GroupName>
-          <Files>
-            <File>
-              <FileName>mpu6050.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Hardware\MPU6050\mpu6050.c</FilePath>
-            </File>
-            <File>
-              <FileName>mpuiic.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Hardware\MPU6050\mpuiic.c</FilePath>
-            </File>
             <File>
               <FileName>inv_mpu_dmp_motion_driver.c</FileName>
               <FileType>1</FileType>
@@ -425,86 +390,75 @@
               <FileType>1</FileType>
               <FilePath>.\Hardware\MPU6050\eMPL\inv_mpu.c</FilePath>
             </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Core</GroupName>
+          <Files>
             <File>
-              <FileName>control.c</FileName>
+              <FileName>main.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Hardware\CONTROL\control.c</FilePath>
+              <FilePath>.\Core\main.c</FilePath>
             </File>
             <File>
-              <FileName>encoder.c</FileName>
+              <FileName>stm32f10x_it.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\Hardware\ENCODER\encoder.c</FilePath>
+              <FilePath>.\Core\stm32f10x_it.c</FilePath>
             </File>
             <File>
-              <FileName>exti.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Hardware\EXTI\exti.c</FilePath>
+              <FileName>stm32f10x_it.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Core\stm32f10x_it.h</FilePath>
             </File>
             <File>
-              <FileName>motor.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Hardware\MOTOR\motor.c</FilePath>
-            </File>
-            <File>
-              <FileName>pwm.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Hardware\PWM\pwm.c</FilePath>
-            </File>
-            <File>
-              <FileName>OLED.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Hardware\OLED\OLED.c</FilePath>
-            </File>
-            <File>
-              <FileName>usart2.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Hardware\USART2\usart2.c</FilePath>
-            </File>
-            <File>
-              <FileName>button.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Hardware\BUTTON\button.c</FilePath>
-            </File>
-            <File>
-              <FileName>board.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Hardware\BOARD\board.c</FilePath>
+              <FileName>stm32f10x_conf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Core\stm32f10x_conf.h</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>System</GroupName>
+          <GroupName>BSP</GroupName>
           <Files>
-            <File>
-              <FileName>sys.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\System\sys.c</FilePath>
-            </File>
-            <File>
-              <FileName>sys.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\System\sys.h</FilePath>
-            </File>
-            <File>
-              <FileName>usart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\System\usart.c</FilePath>
-            </File>
-            <File>
-              <FileName>usart.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\System\usart.h</FilePath>
-            </File>
-            <File>
-              <FileName>delay.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\System\delay.c</FilePath>
-            </File>
-            <File>
-              <FileName>led.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\System\led.c</FilePath>
-            </File>
+            <File><FileName>board.c</FileName><FileType>1</FileType><FilePath>.\BSP\board.c</FilePath></File>
+            <File><FileName>timebase.c</FileName><FileType>1</FileType><FilePath>.\BSP\timebase.c</FilePath></File>
+            <File><FileName>soft_i2c.c</FileName><FileType>1</FileType><FilePath>.\BSP\soft_i2c.c</FilePath></File>
+            <File><FileName>encoder.c</FileName><FileType>1</FileType><FilePath>.\BSP\encoder.c</FilePath></File>
+            <File><FileName>motor_pwm.c</FileName><FileType>1</FileType><FilePath>.\BSP\motor_pwm.c</FilePath></File>
+            <File><FileName>uart3.c</FileName><FileType>1</FileType><FilePath>.\BSP\uart3.c</FilePath></File>
+            <File><FileName>adc_battery.c</FileName><FileType>1</FileType><FilePath>.\BSP\adc_battery.c</FilePath></File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Drivers</GroupName>
+          <Files>
+            <File><FileName>tb6612.c</FileName><FileType>1</FileType><FilePath>.\Drivers\Motor\tb6612.c</FilePath></File>
+            <File><FileName>inv_mpu_port.c</FileName><FileType>1</FileType><FilePath>.\Drivers\IMU\inv_mpu_port.c</FilePath></File>
+            <File><FileName>mpu_dmp_adapter.c</FileName><FileType>1</FileType><FilePath>.\Drivers\IMU\mpu_dmp_adapter.c</FilePath></File>
+            <File><FileName>ssd1306.c</FileName><FileType>1</FileType><FilePath>.\Drivers\Display\ssd1306.c</FilePath></File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Control</GroupName>
+          <Files>
+            <File><FileName>pid.c</FileName><FileType>1</FileType><FilePath>.\Control\pid.c</FilePath></File>
+            <File><FileName>filters.c</FileName><FileType>1</FileType><FilePath>.\Control\filters.c</FilePath></File>
+            <File><FileName>motor_mixer.c</FileName><FileType>1</FileType><FilePath>.\Control\motor_mixer.c</FilePath></File>
+            <File><FileName>balance_controller.c</FileName><FileType>1</FileType><FilePath>.\Control\balance_controller.c</FilePath></File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>App</GroupName>
+          <Files>
+            <File><FileName>app.c</FileName><FileType>1</FileType><FilePath>.\App\app.c</FilePath></File>
+            <File><FileName>app_state.c</FileName><FileType>1</FileType><FilePath>.\App\app_state.c</FilePath></File>
+            <File><FileName>remote_control.c</FileName><FileType>1</FileType><FilePath>.\App\remote_control.c</FilePath></File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Legacy</GroupName>
+          <Files>
+            <File><FileName>legacy_controller.c</FileName><FileType>1</FileType><FilePath>.\Legacy\legacy_controller.c</FilePath></File>
           </Files>
         </Group>
         <Group>
@@ -566,19 +520,9 @@
               <FilePath>.\Libraries\stm32f10x_adc.h</FilePath>
             </File>
             <File>
-              <FileName>stm32f10x_bkp.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Libraries\stm32f10x_bkp.c</FilePath>
-            </File>
-            <File>
               <FileName>stm32f10x_bkp.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\Libraries\stm32f10x_bkp.h</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f10x_can.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Libraries\stm32f10x_can.c</FilePath>
             </File>
             <File>
               <FileName>stm32f10x_can.h</FileName>
@@ -586,19 +530,9 @@
               <FilePath>.\Libraries\stm32f10x_can.h</FilePath>
             </File>
             <File>
-              <FileName>stm32f10x_cec.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Libraries\stm32f10x_cec.c</FilePath>
-            </File>
-            <File>
               <FileName>stm32f10x_cec.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\Libraries\stm32f10x_cec.h</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f10x_crc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Libraries\stm32f10x_crc.c</FilePath>
             </File>
             <File>
               <FileName>stm32f10x_crc.h</FileName>
@@ -606,29 +540,14 @@
               <FilePath>.\Libraries\stm32f10x_crc.h</FilePath>
             </File>
             <File>
-              <FileName>stm32f10x_dac.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Libraries\stm32f10x_dac.c</FilePath>
-            </File>
-            <File>
               <FileName>stm32f10x_dac.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\Libraries\stm32f10x_dac.h</FilePath>
             </File>
             <File>
-              <FileName>stm32f10x_dbgmcu.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Libraries\stm32f10x_dbgmcu.c</FilePath>
-            </File>
-            <File>
               <FileName>stm32f10x_dbgmcu.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\Libraries\stm32f10x_dbgmcu.h</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f10x_dma.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Libraries\stm32f10x_dma.c</FilePath>
             </File>
             <File>
               <FileName>stm32f10x_dma.h</FileName>
@@ -646,19 +565,9 @@
               <FilePath>.\Libraries\stm32f10x_exti.h</FilePath>
             </File>
             <File>
-              <FileName>stm32f10x_flash.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Libraries\stm32f10x_flash.c</FilePath>
-            </File>
-            <File>
               <FileName>stm32f10x_flash.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\Libraries\stm32f10x_flash.h</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f10x_fsmc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Libraries\stm32f10x_fsmc.c</FilePath>
             </File>
             <File>
               <FileName>stm32f10x_fsmc.h</FileName>
@@ -676,29 +585,14 @@
               <FilePath>.\Libraries\stm32f10x_gpio.h</FilePath>
             </File>
             <File>
-              <FileName>stm32f10x_i2c.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Libraries\stm32f10x_i2c.c</FilePath>
-            </File>
-            <File>
               <FileName>stm32f10x_i2c.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\Libraries\stm32f10x_i2c.h</FilePath>
             </File>
             <File>
-              <FileName>stm32f10x_iwdg.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Libraries\stm32f10x_iwdg.c</FilePath>
-            </File>
-            <File>
               <FileName>stm32f10x_iwdg.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\Libraries\stm32f10x_iwdg.h</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f10x_pwr.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Libraries\stm32f10x_pwr.c</FilePath>
             </File>
             <File>
               <FileName>stm32f10x_pwr.h</FileName>
@@ -716,29 +610,14 @@
               <FilePath>.\Libraries\stm32f10x_rcc.h</FilePath>
             </File>
             <File>
-              <FileName>stm32f10x_rtc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Libraries\stm32f10x_rtc.c</FilePath>
-            </File>
-            <File>
               <FileName>stm32f10x_rtc.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\Libraries\stm32f10x_rtc.h</FilePath>
             </File>
             <File>
-              <FileName>stm32f10x_sdio.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Libraries\stm32f10x_sdio.c</FilePath>
-            </File>
-            <File>
               <FileName>stm32f10x_sdio.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\Libraries\stm32f10x_sdio.h</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f10x_spi.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Libraries\stm32f10x_spi.c</FilePath>
             </File>
             <File>
               <FileName>stm32f10x_spi.h</FileName>
@@ -764,11 +643,6 @@
               <FileName>stm32f10x_usart.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\Libraries\stm32f10x_usart.h</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f10x_wwdg.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Libraries\stm32f10x_wwdg.c</FilePath>
             </File>
             <File>
               <FileName>stm32f10x_wwdg.h</FileName>
