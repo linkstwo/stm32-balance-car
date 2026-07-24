@@ -1,4 +1,5 @@
 #include "sys.h"
+#include "board.h"
 
 float Target_Speed = 0;                                      // target speed
 volatile short gyrox, gyroy, gyroz;                          // gyro speed
@@ -39,19 +40,19 @@ int main(void)
     u32 last_cmd_ms;
 
     NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
-    uart3_init(9600);
-    USART2_Init(115200);
+    Board_PinMux_Init();
 
     delay_init();
-    NVIC_Config();
-    Button_Init();
-
-    OLED_Init();
-    OLED_Clear();
 
     Motor_Init();
     PWM_Init_TIM1(7199, 0);
     EnterStaticState();
+
+    OLED_Init();
+    OLED_Clear();
+
+    uart3_init(9600);
+    NVIC_Config();
 
     mpu_init_ret = MPU_Init();
     dmp_init_ret = 0;
@@ -69,12 +70,10 @@ int main(void)
         last_cmd_ms = delay_get_ms();
         Usart3_LastValidCmdMs = last_cmd_ms;
         MPU6050_EXTI_Init();
-        printf("MPU init ok\r\n");
     }
     else
     {
         EnterStaticState();
-        printf("MPU init fail: mpu=%u dmp=%u err=%u\r\n", mpu_init_ret, dmp_init_ret, init_err);
         OLED_ShowString(0, 0, (u8 *)"MPU ERR", 16);
         OLED_ShowNumber(0, 2, init_err, 2, 16);
     }
@@ -90,7 +89,6 @@ int main(void)
                     EnterStaticState();
                     OLED_Clear();
                     OLED_ShowString(0, 0, (u8 *)"MPU LOST", 16);
-                    printf("MPU LOST\r\n");
                     mpu_fault_reported = 1;
                 }
             }

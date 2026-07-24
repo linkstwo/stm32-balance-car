@@ -336,7 +336,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>.\Libraries;.\Startup;.\User;.\Hardware;.\System;.\Hardware\MPU6050;.\Hardware\OLED;.\Hardware\CONTROL;.\Hardware\ENCODER;.\Hardware\EXTI;.\Hardware\MOTOR;.\Hardware\PWM;.\Hardware\MPU6050\eMPL;.\Hardware\USART2;.\Hardware\BUTTON</IncludePath>
+              <IncludePath>.\Libraries;.\Startup;.\User;.\Hardware;.\System;.\Hardware\MPU6050;.\Hardware\OLED;.\Hardware\CONTROL;.\Hardware\ENCODER;.\Hardware\EXTI;.\Hardware\MOTOR;.\Hardware\PWM;.\Hardware\MPU6050\eMPL;.\Hardware\USART2;.\Hardware\BUTTON;.\Hardware\BOARD</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -464,6 +464,11 @@
               <FileName>button.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Hardware\BUTTON\button.c</FilePath>
+            </File>
+            <File>
+              <FileName>board.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Hardware\BOARD\board.c</FilePath>
             </File>
           </Files>
         </Group>

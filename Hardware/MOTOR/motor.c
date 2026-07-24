@@ -34,6 +34,7 @@ int GFP_abs(int p)
 
 void SETPWM(int motor_left, int motor_right)
 {
+    /* Keep the existing A/B channel polarity; confirm wheel polarity on hardware. */
 	if(motor_left > 0)        Ain1 = 1, Ain2 = 0;
 	else                      Ain1 = 0, Ain2 = 1;
 	TIM_SetCompare1(TIM1, GFP_abs(motor_left));
