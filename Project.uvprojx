@@ -52,7 +52,7 @@
           <OutputName>Project</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
-              <CreateHexFile>1</CreateHexFile>
+          <CreateHexFile>1</CreateHexFile>
           <DebugInformation>1</DebugInformation>
           <BrowseInformation>1</BrowseInformation>
           <ListingPath>.\Listings\</ListingPath>
@@ -420,45 +420,121 @@
         <Group>
           <GroupName>BSP</GroupName>
           <Files>
-            <File><FileName>board.c</FileName><FileType>1</FileType><FilePath>.\BSP\board.c</FilePath></File>
-            <File><FileName>timebase.c</FileName><FileType>1</FileType><FilePath>.\BSP\timebase.c</FilePath></File>
-            <File><FileName>soft_i2c.c</FileName><FileType>1</FileType><FilePath>.\BSP\soft_i2c.c</FilePath></File>
-            <File><FileName>encoder.c</FileName><FileType>1</FileType><FilePath>.\BSP\encoder.c</FilePath></File>
-            <File><FileName>motor_pwm.c</FileName><FileType>1</FileType><FilePath>.\BSP\motor_pwm.c</FilePath></File>
-            <File><FileName>uart3.c</FileName><FileType>1</FileType><FilePath>.\BSP\uart3.c</FilePath></File>
-            <File><FileName>adc_battery.c</FileName><FileType>1</FileType><FilePath>.\BSP\adc_battery.c</FilePath></File>
+            <File>
+              <FileName>board.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\BSP\board.c</FilePath>
+            </File>
+            <File>
+              <FileName>timebase.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\BSP\timebase.c</FilePath>
+            </File>
+            <File>
+              <FileName>soft_i2c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\BSP\soft_i2c.c</FilePath>
+            </File>
+            <File>
+              <FileName>encoder.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\BSP\encoder.c</FilePath>
+            </File>
+            <File>
+              <FileName>motor_pwm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\BSP\motor_pwm.c</FilePath>
+            </File>
+            <File>
+              <FileName>uart3.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\BSP\uart3.c</FilePath>
+            </File>
+            <File>
+              <FileName>adc_battery.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\BSP\adc_battery.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>Drivers</GroupName>
           <Files>
-            <File><FileName>tb6612.c</FileName><FileType>1</FileType><FilePath>.\Drivers\Motor\tb6612.c</FilePath></File>
-            <File><FileName>inv_mpu_port.c</FileName><FileType>1</FileType><FilePath>.\Drivers\IMU\inv_mpu_port.c</FilePath></File>
-            <File><FileName>mpu_dmp_adapter.c</FileName><FileType>1</FileType><FilePath>.\Drivers\IMU\mpu_dmp_adapter.c</FilePath></File>
-            <File><FileName>ssd1306.c</FileName><FileType>1</FileType><FilePath>.\Drivers\Display\ssd1306.c</FilePath></File>
+            <File>
+              <FileName>tb6612.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Drivers\Motor\tb6612.c</FilePath>
+            </File>
+            <File>
+              <FileName>inv_mpu_port.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Drivers\IMU\inv_mpu_port.c</FilePath>
+            </File>
+            <File>
+              <FileName>mpu_dmp_adapter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Drivers\IMU\mpu_dmp_adapter.c</FilePath>
+            </File>
+            <File>
+              <FileName>ssd1306.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Drivers\Display\ssd1306.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>Control</GroupName>
           <Files>
-            <File><FileName>pid.c</FileName><FileType>1</FileType><FilePath>.\Control\pid.c</FilePath></File>
-            <File><FileName>filters.c</FileName><FileType>1</FileType><FilePath>.\Control\filters.c</FilePath></File>
-            <File><FileName>motor_mixer.c</FileName><FileType>1</FileType><FilePath>.\Control\motor_mixer.c</FilePath></File>
-            <File><FileName>balance_controller.c</FileName><FileType>1</FileType><FilePath>.\Control\balance_controller.c</FilePath></File>
+            <File>
+              <FileName>pid.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Control\pid.c</FilePath>
+            </File>
+            <File>
+              <FileName>filters.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Control\filters.c</FilePath>
+            </File>
+            <File>
+              <FileName>motor_mixer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Control\motor_mixer.c</FilePath>
+            </File>
+            <File>
+              <FileName>balance_controller.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Control\balance_controller.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>App</GroupName>
           <Files>
-            <File><FileName>app.c</FileName><FileType>1</FileType><FilePath>.\App\app.c</FilePath></File>
-            <File><FileName>app_state.c</FileName><FileType>1</FileType><FilePath>.\App\app_state.c</FilePath></File>
-            <File><FileName>remote_control.c</FileName><FileType>1</FileType><FilePath>.\App\remote_control.c</FilePath></File>
+            <File>
+              <FileName>app.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\App\app.c</FilePath>
+            </File>
+            <File>
+              <FileName>app_state.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\App\app_state.c</FilePath>
+            </File>
+            <File>
+              <FileName>remote_control.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\App\remote_control.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>Legacy</GroupName>
           <Files>
-            <File><FileName>legacy_controller.c</FileName><FileType>1</FileType><FilePath>.\Legacy\legacy_controller.c</FilePath></File>
+            <File>
+              <FileName>legacy_controller.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Legacy\legacy_controller.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
