@@ -35,7 +35,7 @@ typedef struct
     PiController speed_pi;
     FirstOrderFilter speed_filter;
     float ramped_speed_counts_per_s;
-    float desired_pitch_offset_deg;
+    float target_pitch_deg;
     float speed_loop_elapsed_s;
     BalanceControllerTelemetry telemetry;
 } BalanceController;

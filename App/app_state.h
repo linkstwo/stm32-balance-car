@@ -23,6 +23,7 @@ typedef struct
     uint8_t imu_failure_count;
     uint32_t fall_start_ms;
     bool fall_timer_active;
+    bool auto_arm_pending;
 } AppStateMachine;
 
 void AppState_Init(AppStateMachine *machine);
@@ -31,6 +32,7 @@ void AppState_OnImuSample(AppStateMachine *machine, float pitch_deg, uint32_t no
                           bool neutral_command_received, bool remote_timed_out);
 void AppState_OnImuReadFailure(AppStateMachine *machine);
 void AppState_OnImuStale(AppStateMachine *machine);
+void AppState_OnControlTimingFailure(AppStateMachine *machine);
 bool AppState_IsMotorAuthorized(const AppStateMachine *machine);
 const char *AppState_ToString(AppState state);
 

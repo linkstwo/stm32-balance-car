@@ -15,11 +15,13 @@ void AppState_Init(AppStateMachine *machine)
     machine->imu_failure_count = 0U;
     machine->fall_start_ms = 0U;
     machine->fall_timer_active = false;
+    machine->auto_arm_pending = false;
 }
 
 void AppState_SetImuInitResult(AppStateMachine *machine, bool initialized)
 {
     machine->state = initialized ? APP_STATE_DISARMED : APP_STATE_IMU_FAULT;
+    machine->auto_arm_pending = initialized;
 }
 
 void AppState_OnImuSample(AppStateMachine *machine, float pitch_deg, uint32_t now_ms,
@@ -43,6 +45,7 @@ void AppState_OnImuSample(AppStateMachine *machine, float pitch_deg, uint32_t no
         else if ((uint32_t)(now_ms - machine->fall_start_ms) >= APP_FALL_TRIP_TIME_MS)
         {
             machine->state = APP_STATE_FALLEN;
+            machine->auto_arm_pending = false;
         }
     }
     else
@@ -73,9 +76,11 @@ void AppState_OnImuSample(AppStateMachine *machine, float pitch_deg, uint32_t no
         {
             machine->stable_sample_count = 0U;
         }
-        if ((machine->stable_sample_count >= APP_ARM_STABLE_SAMPLES) && neutral_command_received)
+        if ((machine->stable_sample_count >= APP_ARM_STABLE_SAMPLES) &&
+            (neutral_command_received || machine->auto_arm_pending))
         {
             machine->state = APP_STATE_ARMED;
+            machine->auto_arm_pending = false;
         }
     }
     else if ((machine->state == APP_STATE_ARMED) && remote_timed_out)
@@ -96,11 +101,22 @@ void AppState_OnImuReadFailure(AppStateMachine *machine)
     }
     /* A FIFO read failure invalidates the current control sample; fail safe now. */
     machine->state = APP_STATE_IMU_FAULT;
+    machine->auto_arm_pending = false;
 }
 
 void AppState_OnImuStale(AppStateMachine *machine)
 {
     machine->state = APP_STATE_IMU_FAULT;
+    machine->auto_arm_pending = false;
+}
+
+void AppState_OnControlTimingFailure(AppStateMachine *machine)
+{
+    /* Require a fresh stability interval and neutral command before re-arming. */
+    machine->state = APP_STATE_DISARMED;
+    machine->stable_sample_count = 0U;
+    machine->fall_timer_active = false;
+    machine->auto_arm_pending = false;
 }
 
 bool AppState_IsMotorAuthorized(const AppStateMachine *machine)

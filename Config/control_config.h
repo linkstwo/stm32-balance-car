@@ -20,7 +20,6 @@ typedef struct
     float speed_integral_limit;
     float speed_output_angle_limit_deg;
     float yaw_rate_kp;
-    float yaw_rate_kd;
     float command_accel_limit_counts_per_s2;
     int16_t pwm_limit;
 } BalanceControlConfig;

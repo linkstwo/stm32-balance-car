@@ -8,13 +8,13 @@
 static const BalanceControlConfig k_safe_bringup_config =
 {
     -8.0f, -80.0f, -1.0f, 0.004f, 0.001f, 1000.0f, 2.0f,
-    3.0f, 0.0f, 300.0f, 600
+    3.0f, 300.0f, 600
 };
 
 static const BalanceControlConfig k_cascade_v1_config =
 {
     -8.0f, -100.0f, -1.5f, 0.008f, 0.002f, 1500.0f, 3.0f,
-    4.0f, 0.0f, 500.0f, 2200
+    4.0f, 500.0f, 2200
 };
 
 static float BalanceController_Ramp(float current, float target, float max_rate, float dt_s)
@@ -55,7 +55,7 @@ void BalanceController_Reset(BalanceController *controller)
     PiController_Reset(&controller->speed_pi);
     controller->speed_filter.initialized = false;
     controller->ramped_speed_counts_per_s = 0.0f;
-    controller->desired_pitch_offset_deg = 0.0f;
+    controller->target_pitch_deg = controller->config->balance_angle_deg;
     controller->speed_loop_elapsed_s = 0.0f;
     controller->telemetry.measured_speed_counts_per_s = 0.0f;
     controller->telemetry.target_speed_counts_per_s = 0.0f;
@@ -76,6 +76,7 @@ MotorMixOutput BalanceController_Update(BalanceController *controller,
     float angle_error;
     float balance_output;
     float turn_output;
+    const float speed_loop_period_s = (float)APP_SPEED_LOOP_PERIOD_MS / 1000.0f;
 
     if ((dt_s <= 0.0f) || (dt_s > 0.050f))
     {
@@ -91,16 +92,17 @@ MotorMixOutput BalanceController_Update(BalanceController *controller,
         0.5f * (left_counts_per_s + right_counts_per_s), 5.0f, dt_s);
 
     controller->speed_loop_elapsed_s += dt_s;
-    if (controller->speed_loop_elapsed_s >= ((float)APP_SPEED_LOOP_PERIOD_MS / 1000.0f))
+    if ((controller->speed_loop_elapsed_s + 0.000001f) >= speed_loop_period_s)
     {
-        controller->desired_pitch_offset_deg = PiController_Update(&controller->speed_pi,
-            controller->ramped_speed_counts_per_s - measured_speed,
-            controller->speed_loop_elapsed_s);
-        controller->speed_loop_elapsed_s = 0.0f;
+        /* The outer speed loop owns the target consumed by the inner balance loop. */
+        controller->target_pitch_deg = controller->config->balance_angle_deg +
+            PiController_Update(&controller->speed_pi,
+                controller->ramped_speed_counts_per_s - measured_speed,
+                controller->speed_loop_elapsed_s);
+        controller->speed_loop_elapsed_s -= speed_loop_period_s;
     }
 
-    angle_error = imu->pitch_deg - (controller->config->balance_angle_deg +
-                                    controller->desired_pitch_offset_deg);
+    angle_error = imu->pitch_deg - controller->target_pitch_deg;
     balance_output = controller->config->angle_kp * angle_error +
                      controller->config->angle_kd * imu->gyro_y_dps;
     turn_output = controller->config->yaw_rate_kp *
@@ -108,8 +110,7 @@ MotorMixOutput BalanceController_Update(BalanceController *controller,
 
     controller->telemetry.measured_speed_counts_per_s = measured_speed;
     controller->telemetry.target_speed_counts_per_s = controller->ramped_speed_counts_per_s;
-    controller->telemetry.pitch_target_deg = controller->config->balance_angle_deg +
-                                             controller->desired_pitch_offset_deg;
+    controller->telemetry.pitch_target_deg = controller->target_pitch_deg;
     controller->telemetry.balance_output = balance_output;
     controller->telemetry.turn_output = turn_output;
     return MotorMixer_Mix(balance_output, turn_output, controller->config->pwm_limit);

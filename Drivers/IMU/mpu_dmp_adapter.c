@@ -176,11 +176,9 @@ ImuResult Imu_ReadLatest(ImuSample *sample)
     uint8_t read_count = 0U;
     uint32_t primask = __get_PRIMASK();
 
+    /* Consume the current IRQ batch; events arriving during FIFO reads stay queued. */
     __disable_irq();
-    if (g_pending_count > 0U)
-    {
-        g_pending_count--;
-    }
+    g_pending_count = 0U;
     if (primask == 0U)
     {
         __enable_irq();
@@ -218,6 +216,17 @@ ImuResult Imu_ReadLatest(ImuSample *sample)
     sample->gyro_z_dps = BOARD_IMU_GYRO_Z_SIGN * ((float)gyro[2] / gyro_sensitivity);
     sample->timestamp_ms = Timebase_GetMs();
     sample->sequence = ++g_sequence;
+
+    /* Preserve IRQs received while reading and request another pass for FIFO backlog. */
+    __disable_irq();
+    if ((more != 0U) && (g_pending_count == 0U))
+    {
+        g_pending_count = 1U;
+    }
+    if (primask == 0U)
+    {
+        __enable_irq();
+    }
     return IMU_OK;
 }
 

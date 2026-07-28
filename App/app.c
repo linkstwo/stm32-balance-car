@@ -80,6 +80,7 @@ static void App_RunControl(const ImuSample *sample)
     if ((period_ms < 5U) || (period_ms > 20U))
     {
         g_app.control_overrun_count++;
+        AppState_OnControlTimingFailure(&g_app.state_machine);
         MotorDriver_Disable();
         return;
     }
