@@ -8,4 +8,4 @@
 4. 转向使用目标 yaw rate 与 gyro Z deg/s 的误差。
 5. 混控为 `left=balance-turn`、`right=balance+turn`；先限制转向量，尽量保留平衡基础力矩。
 
-`Legacy/legacy_controller.c` 保存旧参数和结构作对照，但它依赖旧的 raw gyro 单位，默认不会运行。SafeBringup 与 CascadeV1 参数在 `balance_controller.c`，全部为 `UNVERIFIED_ON_HARDWARE`；不要直接把旧 `Vertical_Kd=-2.2` 套到 deg/s 新算法。旧 `Encoder_sum += Movement` 不是标准积分，已由明确的 `error * dt` 替代。
+SafeBringup 与 CascadeV1 参数在 `balance_controller.c`，全部为 `UNVERIFIED_ON_HARDWARE`。实车调参前先确认电机、编码器和 IMU 方向，再从低 PWM 限幅开始逐步增加。

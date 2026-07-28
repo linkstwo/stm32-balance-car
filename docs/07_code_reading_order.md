@@ -9,6 +9,5 @@
 7. `Control/balance_controller.c`、`pid.c`、`motor_mixer.c`：理解级联环路、抗饱和和混控。
 8. `Drivers/Motor/tb6612.c`：理解电机方向、Coast、Brake 和统一 PWM 限幅。
 9. `Drivers/Display/ssd1306.c`：理解低优先级诊断显示。
-10. `Legacy/legacy_controller.c`：最后比较旧算法的 raw 单位与新接口的区别。
 
 看完每步后应能回答：输入从哪里来、单位是什么、在哪个上下文运行、失败会进入什么状态。

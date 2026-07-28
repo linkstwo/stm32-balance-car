@@ -336,7 +336,7 @@
               <MiscControls>--c99</MiscControls>
               <Define>USE_STDPERIPH_DRIVER,STM32F10X_MD</Define>
               <Undefine></Undefine>
-              <IncludePath>.\Libraries;.\Startup;.\Core;.\Config;.\BSP;.\Drivers\Motor;.\Drivers\IMU;.\Drivers\Display;.\Control;.\App;.\Legacy;.\Hardware\MPU6050\eMPL;.\Hardware\OLED</IncludePath>
+              <IncludePath>.\Libraries;.\Startup;.\Core;.\Config;.\BSP;.\Drivers\Motor;.\Drivers\IMU;.\Drivers\Display;.\Control;.\App;.\Hardware\MPU6050\eMPL</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -524,16 +524,6 @@
               <FileName>remote_control.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\App\remote_control.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Legacy</GroupName>
-          <Files>
-            <File>
-              <FileName>legacy_controller.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Legacy\legacy_controller.c</FilePath>
             </File>
           </Files>
         </Group>

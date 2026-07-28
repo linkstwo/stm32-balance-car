@@ -5,8 +5,7 @@
 
 typedef enum
 {
-    CONTROL_PROFILE_LEGACY = 0,
-    CONTROL_PROFILE_SAFE_BRINGUP,
+    CONTROL_PROFILE_SAFE_BRINGUP = 0,
     CONTROL_PROFILE_CASCADE_V1
 } ControlProfile;
 
@@ -26,6 +25,5 @@ typedef struct
 
 /* Default gains are UNVERIFIED_ON_HARDWARE. Start with wheels raised. */
 #define CONTROL_DEFAULT_PROFILE CONTROL_PROFILE_SAFE_BRINGUP
-#define CONTROL_USE_LEGACY 0
 
 #endif

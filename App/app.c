@@ -3,7 +3,6 @@
 #include "stm32f10x.h"
 #include "app_config.h"
 #include "board_config.h"
-#include "control_config.h"
 #include "board.h"
 #include "timebase.h"
 #include "encoder.h"
@@ -13,7 +12,6 @@
 #include "imu.h"
 #include "ssd1306.h"
 #include "balance_controller.h"
-#include "legacy_controller.h"
 #include "app_state.h"
 #include "remote_control.h"
 #include "app.h"
@@ -23,7 +21,6 @@ typedef struct
     AppStateMachine state_machine;
     RemoteControl remote;
     BalanceController controller;
-    LegacyController legacy_controller;
     ImuSample latest_sample;
     uint32_t last_control_ms;
     uint32_t last_display_ms;
@@ -104,23 +101,9 @@ static void App_RunControl(const ImuSample *sample)
     command.target_speed_counts_per_s = remote_command.target_speed_counts_per_s;
     command.target_yaw_rate_dps = remote_command.target_yaw_rate_dps;
 
-#if CONTROL_USE_LEGACY
-    {
-        LegacyControllerInput legacy_input;
-        legacy_input.pitch_deg = sample->pitch_deg;
-        legacy_input.gyro_y_raw = (int16_t)sample->gyro_y_dps;
-        legacy_input.gyro_z_raw = (int16_t)sample->gyro_z_dps;
-        legacy_input.encoder_sum_delta = (int16_t)(delta.left_delta_counts + delta.right_delta_counts);
-        legacy_input.motion_direction = g_app.remote.motion_direction;
-        legacy_input.turn_direction = g_app.remote.turn_direction;
-        motor_output = LegacyController_Update(&g_app.legacy_controller, &legacy_input,
-                                               MotorDriver_GetOutputLimit());
-    }
-#else
     motor_output = BalanceController_Update(&g_app.controller, &imu_input,
         Encoder_CountsPerSecond(delta.left_delta_counts, period_ms),
         Encoder_CountsPerSecond(delta.right_delta_counts, period_ms), &command, dt_s);
-#endif
     MotorDriver_Set(motor_output.left, motor_output.right);
 }
 
@@ -160,7 +143,6 @@ void App_Init(void)
     AppState_Init(&g_app.state_machine);
     RemoteControl_Init(&g_app.remote, now_ms);
     BalanceController_Init(&g_app.controller, CONTROL_DEFAULT_PROFILE);
-    LegacyController_Init(&g_app.legacy_controller);
     g_app.display_healthy = Oled_Init();
 
     imu_result = Imu_Init();

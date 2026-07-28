@@ -16,3 +16,4 @@ DebugConfig/*.dbgconf
 *.build_log.htm
 *.exe
 Project.uvguix.*
+*.uvoptx
